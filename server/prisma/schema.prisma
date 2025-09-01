@@ -1,0 +1,102 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          String      @id @default(uuid())
+  email       String      @unique
+  password    String
+  salt        String
+  accountType AccountType @default(user) // システム権限 (user, admin, superadmin)
+  abuseipdbApiKey String? // AbuseIPDB APIキー
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  roles            UserRole[]
+}
+
+model Role {
+  id          String     @id @default(uuid())
+  name        String     @unique // e.g., "Project A", "Accounting"
+  users       UserRole[]
+}
+
+model UserRole {
+  userId String
+  roleId String
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role   Role @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  @@id([userId, roleId])
+}
+
+model SshLog {
+  id          String    @id @default(uuid())
+  timestamp   DateTime  // ログのタイムスタンプ
+  hostname    String    // ホスト名 (e.g., ip-10-0-31-10)
+  service     String    // サービス名 (e.g., sshd, CRON)
+  pid         Int?      // プロセスID
+  username    String?   // ユーザー名
+  ipAddress   String?   // IPアドレス
+  port        Int?      // ポート番号
+  action      String    // アクション (e.g., "Disconnected", "Received disconnect", "session opened")
+  message     String    // 元のログメッセージ
+  logType     LogType   // ログの種類
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model UfwLog {
+  id          String    @id @default(uuid())
+  timestamp   DateTime  // ログのタイムスタンプ
+  hostname    String    // ホスト名
+  service     String    // サービス名 (e.g., kernel)
+  pid         Int?      // プロセスID
+  ipAddress   String?   // IPアドレス
+  port        Int?      // ポート番号
+  protocol    String?   // プロトコル (TCP, UDP, etc.)
+  action      String    // アクション (e.g., "DROP", "ACCEPT", "REJECT")
+  message     String    // 元のログメッセージ
+  logType     UfwLogType // ログの種類
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+// --- Enums ---
+
+enum AccountType {
+  user
+  admin
+  superadmin
+}
+
+enum LogType {
+  SSH_LOGIN_BLOCKED    // ログイン遮断
+  SSH_DISCONNECT       // 切断
+  SSH_AUTH_FAIL        // 認証失敗
+  SSH_CONNECT          // 接続成功
+  SSH_AUTH_SUCCESS     // 認証成功
+  CRON_SESSION         // CRONセッション
+  OTHER                // その他
+}
+
+enum UfwLogType {
+  UFW_DROP             // パケットドロップ
+  UFW_ACCEPT           // パケット許可
+  UFW_REJECT           // パケット拒否
+  UFW_LIMIT            // レート制限
+  UFW_LOG              // 一般的なログ
+  UFW_BLOCK            // ブロック
+  OTHER                // その他
+}

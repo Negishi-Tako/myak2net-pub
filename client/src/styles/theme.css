@@ -1,0 +1,401 @@
+/* General Theme Styles */
+:root {
+  /* Light Mode Palette */
+  --bg-color: #ffffff;
+  --text-color: #212529;
+  --primary-color: #007bff;
+  --primary-hover-color: #0056b3;
+  --secondary-color: #6c757d;
+  --border-color: #dee2e6;
+  --card-bg-color: #ffffff;
+  --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  --input-bg-color: #ffffff;
+  --input-border-color: #ced4da;
+  --header-bg-color: #ffffff;
+  --header-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --sidebar-bg-color: #f1f3f5;
+  --sidebar-link-hover-bg: #e9ecef;
+  --error-color: #dc3545;
+}
+
+body.dark-mode {
+  /* Dark Mode Palette */
+  --bg-color: #121212;
+  --text-color: #e9ecef;
+  --primary-color: #0d6efd;
+  --primary-hover-color: #0b5ed7;
+  --secondary-color: #adb5bd;
+  --border-color: #495057;
+  --card-bg-color: #1c1c1e;
+  --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+  --input-bg-color: #2c2c2e;
+  --input-border-color: #5a5a5a;
+  --header-bg-color: #1c1c1e;
+  --header-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  --sidebar-bg-color: #212529;
+  --sidebar-link-hover-bg: #343a40;
+  --error-color: #ff6b6b;
+}
+
+/* Base Body Style */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  transition: background-color 0.3s, color 0.3s;
+  margin: 0;
+}
+
+/* Links */
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+a:hover {
+  color: var(--primary-hover-color);
+  text-decoration: underline;
+}
+
+/* App Layout */
+.app-layout {
+  display: flex;
+}
+
+.main-content {
+  flex-grow: 1;
+  padding: 20px;
+  transition: margin-left 0.3s ease;
+  margin-left: 220px; /* Sidebar width */
+}
+
+.app-layout.sidebar-closed .main-content {
+  margin-left: 0;
+}
+
+/* Generic Container */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+/* Card Style */
+.card {
+  background-color: var(--card-bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: var(--card-shadow);
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+/* Button Styles */
+.btn {
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  user-select: none;
+  background-color: transparent;
+  border: 1px solid transparent;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: 0.25rem;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-hover-color);
+  border-color: var(--primary-hover-color);
+}
+
+.btn-secondary {
+  color: #fff;
+  background-color: var(--secondary-color);
+  border-color: var(--secondary-color);
+}
+
+.btn-danger {
+  color: #fff;
+  background-color: var(--error-color);
+  border-color: var(--error-color);
+}
+
+/* Form Styles */
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--text-color);
+  background-color: var(--input-bg-color);
+  background-clip: padding-box;
+  border: 1px solid var(--input-border-color);
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  box-sizing: border-box;
+}
+
+.form-control:focus {
+  border-color: var(--primary-color);
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Header Styles */
+.app-header {
+  background-color: var(--header-bg-color);
+  box-shadow: var(--header-shadow);
+  padding: 0 20px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1010;
+  transition: background-color 0.3s;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.app-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+  flex-grow: 1; /* Title takes up available space */
+}
+
+.header-right-section {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Sidebar Styles */
+.app-sidebar {
+  width: 220px;
+  background-color: var(--sidebar-bg-color);
+  padding-top: 20px;
+  position: fixed;
+  top: 56px;
+  left: 0;
+  height: calc(100vh - 56px);
+  overflow-y: auto;
+  border-right: 1px solid var(--border-color);
+  transition: width 0.3s ease, background-color 0.3s, border-color 0.3s;
+  z-index: 1000;
+}
+
+.app-layout.sidebar-closed .app-sidebar {
+  width: 0;
+  border-right: none;
+  padding-top: 0;
+}
+
+.sidebar-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-nav a {
+  display: block;
+  padding: 10px 20px;
+  color: var(--text-color);
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.sidebar-nav a:hover {
+  background-color: var(--sidebar-link-hover-bg);
+}
+
+/* Login Page Specifics */
+.login-page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100%; /* Inherit height from #app */
+  padding-top: 0; /* Override body padding */
+}
+
+.login-container {
+  width: 100%;
+  max-width: 400px;
+}
+
+/* User Management Styles */
+.user-management-container h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.user-table th,
+.user-table td {
+  border: 1px solid var(--border-color);
+  padding: 12px 15px;
+  text-align: left;
+}
+
+.user-table thead {
+  background-color: var(--sidebar-bg-color); /* Use a subtle background for the header */
+}
+
+.user-table th {
+  font-weight: 600;
+}
+
+.user-table tbody tr:nth-of-type(even) {
+  background-color: var(--sidebar-bg-color);
+}
+
+.user-table tbody tr:hover {
+  background-color: var(--sidebar-link-hover-bg);
+}
+
+.actions-cell {
+  display: flex;
+  gap: 10px;
+}
+
+/* Theme Switch */
+.theme-switch-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.theme-switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 28px;
+}
+
+.theme-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 28px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: var(--primary-color);
+}
+
+input:checked + .slider:before {
+  transform: translateX(22px);
+}
+
+/* Loading Spinner */
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.loading-spinner {
+  border: 8px solid #f3f3f3;
+  border-top: 8px solid var(--primary-color);
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Sidebar Toggle Button */
+.sidebar-toggle-button {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 1020; /* Above other content */
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  font-size: 1.5rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.sidebar-toggle-button:hover {
+  background-color: var(--primary-hover-color);
+  transform: scale(1.1);
+}
